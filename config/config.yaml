@@ -1,0 +1,127 @@
+# AG News Fine-tuning Configuration
+# Production-grade settings with best practices
+
+# Model Configuration
+model:
+  name: "distilbert-base-uncased"
+  num_classes: 4
+  max_length: 512
+  hidden_dropout_prob: 0.1
+  attention_probs_dropout_prob: 0.1
+
+# Training Configuration
+training:
+  learning_rate: 2e-5
+  batch_size: 32
+  gradient_accumulation_steps: 1
+  epochs: 5
+  warmup_steps: 500
+  weight_decay: 0.01
+  adam_epsilon: 1e-8
+  max_grad_norm: 1.0
+  
+# Optimization
+optimization:
+  use_mixed_precision: true
+  use_cuda: true
+  num_workers: 4
+  pin_memory: true
+  
+# Learning Rate Scheduler
+scheduler:
+  type: "cosine"  # Options: linear, cosine, polynomial
+  num_cycles: 0.5
+  last_epoch: -1
+
+# Early Stopping
+early_stopping:
+  enabled: true
+  patience: 3
+  min_delta: 0.0001
+  metric: "val_accuracy"
+
+# Data Configuration
+data:
+  dataset_name: "ag_news"
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  random_seed: 42
+  remove_columns: ["text"]
+  
+# Data Augmentation
+augmentation:
+  enabled: false
+  techniques:
+    - "synonym_replacement"
+    - "random_insertion"
+    - "random_swap"
+    - "random_deletion"
+
+# Hyperparameter Optimization (Optuna)
+optuna:
+  enabled: false
+  n_trials: 20
+  sampler: "tpe"  # Tree-structured Parzen Estimator
+  pruner: "median"
+  timeout: 3600
+  
+# Logging & Monitoring
+logging:
+  level: "INFO"
+  log_dir: "./logs"
+  log_file: "training.log"
+  log_interval: 100
+  
+# Weights & Biases
+wandb:
+  enabled: true
+  project: "ag-news-classification"
+  entity: "nlp-projects"
+  tags: ["distilbert", "ag-news", "production"]
+  notes: "Fine-tuning DistilBERT on AG News dataset"
+
+# Evaluation
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1"
+  average_type: "weighted"
+  
+# Checkpoint & Model Saving
+checkpoint:
+  save_dir: "./models"
+  save_best_only: true
+  save_interval: 500
+  keep_top_k: 3
+  
+# Inference Configuration
+inference:
+  batch_size: 64
+  num_workers: 4
+  return_probabilities: true
+  confidence_threshold: 0.5
+
+# Class Labels
+class_labels:
+  0: "World"
+  1: "Sports"
+  2: "Business"
+  3: "Sci/Tech"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: false
+  log_level: "info"
+  max_request_size: 1000000  # 1MB
+  request_timeout: 30
+  
+# Device Configuration
+device:
+  type: "cuda"  # Options: cuda, cpu, mps
+  device_id: 0

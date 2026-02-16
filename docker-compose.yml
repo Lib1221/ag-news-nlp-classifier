@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  ag-news-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ag-news-classifier
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=info
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - ./config:/app/config
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - ag-news-network
+
+  # Optional: Weights & Biases service for experiment tracking
+  # wandb:
+  #   image: wandb/local:latest
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - wandb_data:/data
+  #   networks:
+  #     - ag-news-network
+
+networks:
+  ag-news-network:
+    driver: bridge
+
+# volumes:
+#   wandb_data:
