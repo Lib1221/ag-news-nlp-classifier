@@ -39,4 +39,4 @@ notebooks/                 # exploration and training_guide.md
 
 `api_server.py` loads the checkpoint once at startup and exposes a JSON endpoint for classification. The `Dockerfile` and `docker-compose.yml` package the server for deployment.
 
-See `IMPLEMENTATION_GUIDE.md`, `PROJECT_SUMMARY.md`, and `TODO.md` at the repo root for design notes and open items.
+See [`IMPLEMENTATION_GUIDE.md`](guides/IMPLEMENTATION_GUIDE.md), [`PROJECT_SUMMARY.md`](guides/PROJECT_SUMMARY.md), and [`TODO.md`](guides/TODO.md) at the repo root for design notes and open items.
