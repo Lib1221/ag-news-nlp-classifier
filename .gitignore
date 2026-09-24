@@ -59,3 +59,16 @@ Thumbs.db
 
 # Docker
 .dockerignore
+
+# Added: common build, cache, secret and editor files
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.sqlite3
+db.sqlite3
+*.ckpt
+checkpoints/
+.env
+.env.*
+!.env.example
