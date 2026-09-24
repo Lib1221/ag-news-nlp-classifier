@@ -298,3 +298,11 @@ Contributions welcome! Please follow:
 ## Contact & Support
 
 For questions or issues, please open a GitHub issue or contact the project maintainer.
+
+## Documentation
+
+Developer docs live in [`docs/`](docs/):
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Setup](docs/SETUP.md)
+- [Contributing](docs/CONTRIBUTING.md)
